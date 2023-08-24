@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomeView from "@/views/HomeView.vue";
+import ContactsView from "@/views/ContactsView.vue";
+import AccountView from "@/views/AccountView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -8,19 +10,31 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/account",
+    name: "account",
+    meta: { requiresAuth: true },
+    component: AccountView,
+  },
+  {
+    path: "/contacts",
+    name: "contacts",
+    component: ContactsView,
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      next({ path: "/", query: { redirect: to.fullPath } });
+    }
+  }
+  next();
 });
 
 export default router;

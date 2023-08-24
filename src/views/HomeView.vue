@@ -61,7 +61,8 @@ export default defineComponent({
     },
   },
   mounted() {
-    !localStorage.getItem("currentUser") && this.$emit("setAuth", false);
+    localStorage.removeItem("currentUser");
+    this.$emit("setAuth", false);
   },
 });
 </script>

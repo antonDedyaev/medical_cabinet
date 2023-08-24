@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Иван",
+            "login": "vano",
+            "password": "ivan23doc"
+        },
+        {
+            "id": 2,
+            "name": "Настя",
+            "login": "stasya",
+            "password": "n3v3r4g3t"
+        },
+        {
+            "id": 3,
+            "name": "Роман",
+            "login": "romka",
+            "password": "!12345#?"
+        }
+    ]
+}
